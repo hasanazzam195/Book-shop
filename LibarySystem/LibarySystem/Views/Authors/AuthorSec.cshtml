@@ -1,0 +1,96 @@
+﻿@model VMAuthor
+@{
+    ViewData["Title"] = "AuthorSec";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+@section Body
+{
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1> Authors Section </h1>
+            </div>
+        </div>
+
+    </div>
+
+}
+@section Body2 {
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2">
+                <input type="submit" value="New Authors" data-target="#testmodal" data-toggle="modal" class="btn btn-primary" />
+            </div>
+            <div class="row" style="margin-top:50px">
+                <div class="col-lg-12">
+                    <table class="table table-bordered table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th> # </th>
+                                <th>Name</th>
+                                <th> Image</th>
+                                <th> Action </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (Author item in Model.liAuthor)
+                            {
+
+                                <tr>
+                                    <td>@item.ID</td>
+                                    <td>@item.FName</td>
+                                    <td>
+                                        <img src="@item.path" style="width:100px" />
+                                    </td>
+                                    <td>
+                                        <a class="text-primary"> Edit  </a>|
+                                        <a class="text-primary" asp-action="DeleteData" asp-route-id=@item.ID> Delete </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form method="post" enctype="multipart/form-data">
+        <div class="modal fade" id="testmodal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title"> Authors </h4>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <span> First Name</span>
+                            <input type="text" class="form-control" placeholder="First Name" asp-for="author.FName" />
+                        </div>
+                        <div style="margin-top:15px">
+                            <span> Last Name</span>
+                            <input type="text" class="form-control" placeholder="Last Name" asp-for="author.LName" />
+                        </div>
+                        <div style="margin-top:15px">
+                            <span> Nutionality </span>
+                            <select class="form-control" asp-items='new SelectList(Model.linutionality,"ID","Name")' asp-for="author.Nutionality_id"></select>
+                        </div>
+                        <div style="margin-top:15px">
+                            <input type="file" id="fileUp" asp-for="ProfileImage" style="display:none;" />
+                            <label class="btn btn-primary" for="fileUp">Upload Image</label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" value="Save" class="btn btn-primary" asp-action="SaveData" />
+                        <input type="submit" value="Close" class="btn btn-primary" />
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+
+}
+
